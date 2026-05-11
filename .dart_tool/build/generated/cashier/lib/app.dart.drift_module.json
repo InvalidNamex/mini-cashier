@@ -1,0 +1,17 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/material.dart",
+    "package:flutter_localizations/flutter_localizations.dart",
+    "package:flutter_bloc/flutter_bloc.dart",
+    "package:cashier/core/database/app_database.dart",
+    "package:cashier/core/router/app_router.dart",
+    "package:cashier/core/theme/app_theme.dart",
+    "package:cashier/features/auth/auth_cubit.dart",
+    "package:cashier/features/categories/cubit/categories_cubit.dart",
+    "package:cashier/features/items/cubit/items_cubit.dart",
+    "package:cashier/features/reports/cubit/reports_cubit.dart",
+    "package:cashier/features/users/cubit/users_cubit.dart",
+    "package:cashier/features/pos/bloc/pos_cubit.dart"
+  ]
+}

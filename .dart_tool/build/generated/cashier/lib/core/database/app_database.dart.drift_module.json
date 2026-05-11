@@ -1,0 +1,93 @@
+{
+  "elements": {
+    "AppDatabase": {
+      "id": {
+        "library_uri": "package:cashier/core/database/app_database.dart",
+        "name": "AppDatabase"
+      },
+      "declaration": {
+        "source_uri": "package:cashier/core/database/app_database.dart",
+        "offset": 442,
+        "name": "AppDatabase"
+      },
+      "references": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "users"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "categories"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "orders"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "order_items"
+        }
+      ],
+      "type": "database",
+      "tables": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "users"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "categories"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "orders"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "order_items"
+        }
+      ],
+      "views": [],
+      "includes": [],
+      "queries": [],
+      "schema_version": 2,
+      "daos": [
+        {
+          "library_uri": "package:cashier/core/database/users_dao.dart",
+          "name": "UsersDao"
+        },
+        {
+          "library_uri": "package:cashier/core/database/categories_dao.dart",
+          "name": "CategoriesDao"
+        },
+        {
+          "library_uri": "package:cashier/core/database/items_dao.dart",
+          "name": "ItemsDao"
+        },
+        {
+          "library_uri": "package:cashier/core/database/orders_dao.dart",
+          "name": "OrdersDao"
+        }
+      ],
+      "has_constructor_arg": false
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:drift_flutter/drift_flutter.dart",
+    "package:crypto/crypto.dart",
+    "package:cashier/core/database/tables.dart",
+    "package:cashier/core/database/users_dao.dart",
+    "package:cashier/core/database/categories_dao.dart",
+    "package:cashier/core/database/items_dao.dart",
+    "package:cashier/core/database/orders_dao.dart"
+  ]
+}

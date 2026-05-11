@@ -1,0 +1,69 @@
+Running `(cd /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/; TMPDIR=/var/folders/tg/03xbc3x14hnbxrzq85wg5bg00000gn/T/ PATH=/Users/invalidnamex/.antigravity/antigravity/bin:/Users/invalidnamex/.antigravity/antigravity/bin:/Users/invalidnamex/.antigravity/antigravity/bin:/opt/homebrew/opt/python@3.9/libexec/bin:/opt/homebrew/bin:/Users/invalidnamex/src/flutter/bin/:/Users/invalidnamex/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand:/Users/invalidnamex/Library/Application Support/Code/User/globalStorage/github.copilot-chat/copilotCli:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pmk/env/global/bin:/Library/Apple/usr/bin:/usr/local/go/bin:/opt/homebrew/bin:/Users/invalidnamex/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand:/Users/invalidnamex/Library/Application Support/Code/User/globalStorage/github.copilot-chat/copilotCli:/Users/invalidnamex/src/flutter/bin/:/Users/invalidnamex/.antigravity/antigravity/bin:/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home/bin:/opt/homebrew/opt/python@3.9/libexec/bin:/Users/invalidnamex/src/flutter/bin:/Users/invalidnamex/src/cmdline-tools/latest/bin:/Users/invalidnamex/src/platform-tools:/Users/invalidnamex/src/flutter/bin:/Users/invalidnamex/src/cmdline-tools/latest/bin:/Users/invalidnamex/src/platform-tools HOME=/Users/invalidnamex /Users/invalidnamex/src/flutter/bin/cache/dart-sdk/bin/dart --packages=/Users/invalidnamex/Desktop/cashier/.dart_tool/package_config.json /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/objective_c/9fb02c5622/hook.dill --config=/Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/objective_c/9fb02c5622/input.json )`.
+INFO: 2026-05-11 10:30:12.553647: Running `which clang`.
+
+INFO: 2026-05-11 10:30:12.563891: Running `/usr/bin/clang --version`.
+
+INFO: 2026-05-11 10:30:12.681231: Running `/usr/bin/clang --version`.
+
+INFO: 2026-05-11 10:30:12.699236: Running: /usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 -c /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/include/dart_api_dl.c -fpic -I src -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/include/dart_api_dl.c.o
+
+INFO: 2026-05-11 10:30:12.699540: Running: /usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 -c /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/objective_c.c -fpic -I src -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c.c.o
+
+INFO: 2026-05-11 10:30:12.699710: Running: /usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 -c /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/test/util.c -fpic -I src -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/test/util.c.o
+
+INFO: 2026-05-11 10:30:12.699992: Running: /usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 -x objective-c -fobjc-arc -c /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/objective_c.m -fpic -I src -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c.m.o
+
+ream_adapter.m.o
+
+INFO: 2026-05-11 10:30:12.700081: Running: /usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 -x objective-c -fobjc-arc -c /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/observer.m -fpic -I src -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/observer.m.o
+
+INFO: 2026-05-11 10:30:12.700167: Running: /usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 -x objective-c -fobjc-arc -c /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/ns_number.m -fpic -I src -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/ns_number.m.o
+
+INFO: 2026-05-11 10:30:12.700240: Running: /usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 -x objective-c -fobjc-arc -c /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/protocol.m -fpic -I src -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/protocol.m.o
+
+INFO: 2026-05-11 10:30:12.700314: Running: /usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 -x objective-c -fobjc-arc -c /Users/invalidnamex/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/objective_c_bindings_generated.m -fpic -I src -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c_bindings_generated.m.o
+
+INFO: 2026-05-11 10:30:12.837659: 
+INFO: 2026-05-11 10:30:12.837836: 
+
+INFO: 2026-05-11 10:30:12.837921: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/test/util.c.o
+
+INFO: 2026-05-11 10:30:12.838169: 
+INFO: 2026-05-11 10:30:12.838198: 
+INFO: 2026-05-11 10:30:12.838209: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/include/dart_api_dl.c.o
+
+INFO: 2026-05-11 10:30:12.838436: 
+INFO: 2026-05-11 10:30:12.838488: 
+INFO: 2026-05-11 10:30:12.838510: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c.c.o
+
+INFO: 2026-05-11 10:30:12.843179: 
+INFO: 2026-05-11 10:30:12.843215: 
+INFO: 2026-05-11 10:30:12.843226: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/observer.m.o
+
+INFO: 2026-05-11 10:30:12.846079: 
+INFO: 2026-05-11 10:30:12.846106: 
+INFO: 2026-05-11 10:30:12.846116: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/protocol.m.o
+
+INFO: 2026-05-11 10:30:13.071444: 
+INFO: 2026-05-11 10:30:13.071483: 
+INFO: 2026-05-11 10:30:13.071501: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/ns_number.m.o
+
+INFO: 2026-05-11 10:30:13.077901: 
+INFO: 2026-05-11 10:30:13.077934: 
+INFO: 2026-05-11 10:30:13.077942: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c.m.o
+
+INFO: 2026-05-11 10:30:13.078025: 
+INFO: 2026-05-11 10:30:13.078035: 
+
+/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/input_stream_adapter.m.o
+
+INFO: 2026-05-11 10:30:13.089272: 
+INFO: 2026-05-11 10:30:13.089301: 
+INFO: 2026-05-11 10:30:13.089309: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c_bindings_generated.m.o
+
+INFO: 2026-05-11 10:30:13.089511: Running: /usr/bin/clang -shared -Wl,-encryptable -undefined dynamic_lookup -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=12 /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/include/dart_api_dl.c.o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c.c.o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/test/util.c.o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/input_stream_adapter.m.o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c.m.o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/observer.m.o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/ns_number.m.o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/protocol.m.o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/obj/src/objective_c_bindings_generated.m.o -o /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/objective_c.dylib
+
+INFO: 2026-05-11 10:30:13.205432: 
+INFO: 2026-05-11 10:30:13.205481: 
+INFO: 2026-05-11 10:30:13.205488: Generated /Users/invalidnamex/Desktop/cashier/.dart_tool/hooks_runner/shared/objective_c/build/9fb02c5622/objective_c.dylib
+

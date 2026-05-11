@@ -1,0 +1,84 @@
+{
+  "elements": {
+    "OrdersDao": {
+      "id": {
+        "library_uri": "package:cashier/core/database/orders_dao.dart",
+        "name": "OrdersDao"
+      },
+      "declaration": {
+        "source_uri": "package:cashier/core/database/orders_dao.dart",
+        "offset": 310,
+        "name": "OrdersDao"
+      },
+      "references": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "orders"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "order_items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "users"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "categories"
+        }
+      ],
+      "type": "dao",
+      "tables": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "orders"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "order_items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "users"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "categories"
+        }
+      ],
+      "views": [],
+      "includes": [],
+      "queries": [],
+      "dart_type": {
+        "elements": [
+          {
+            "lexeme": "OrdersDao",
+            "import_uri": "package:cashier/core/database/orders_dao.dart"
+          }
+        ]
+      },
+      "database": {
+        "elements": [
+          {
+            "lexeme": "AppDatabase",
+            "import_uri": "package:cashier/core/database/app_database.dart"
+          }
+        ]
+      }
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:cashier/core/database/app_database.dart",
+    "package:cashier/core/database/tables.dart"
+  ]
+}

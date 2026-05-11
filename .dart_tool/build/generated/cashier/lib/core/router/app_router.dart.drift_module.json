@@ -1,0 +1,15 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/material.dart",
+    "package:go_router/go_router.dart",
+    "package:cashier/features/auth/auth_cubit.dart",
+    "package:cashier/features/auth/screens/login_screen.dart",
+    "package:cashier/features/pos/screens/pos_screen.dart",
+    "package:cashier/features/categories/screens/categories_screen.dart",
+    "package:cashier/features/items/screens/items_screen.dart",
+    "package:cashier/features/users/screens/users_screen.dart",
+    "package:cashier/features/reports/screens/reports_screen.dart",
+    "package:cashier/core/shell/app_shell.dart"
+  ]
+}

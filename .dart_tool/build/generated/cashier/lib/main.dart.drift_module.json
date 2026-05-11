@@ -1,0 +1,8 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/material.dart",
+    "package:cashier/core/database/app_database.dart",
+    "package:cashier/app.dart"
+  ]
+}

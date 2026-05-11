@@ -1,0 +1,1 @@
+{"valid_import":true,"imports":[{"uri":"package:flutter/material.dart","transitive":false},{"uri":"package:flutter_bloc/flutter_bloc.dart","transitive":false},{"uri":"package:cashier/core/database/app_database.dart","transitive":false},{"uri":"package:cashier/features/categories/cubit/categories_cubit.dart","transitive":false}],"elements":[]}

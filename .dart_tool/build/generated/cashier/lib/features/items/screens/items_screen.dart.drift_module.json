@@ -1,0 +1,10 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/material.dart",
+    "package:flutter_bloc/flutter_bloc.dart",
+    "package:cashier/core/database/app_database.dart",
+    "package:cashier/core/utils/arabic_utils.dart",
+    "package:cashier/features/items/cubit/items_cubit.dart"
+  ]
+}

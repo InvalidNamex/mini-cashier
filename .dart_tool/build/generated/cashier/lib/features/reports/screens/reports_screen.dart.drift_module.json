@@ -1,0 +1,9 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/material.dart",
+    "package:flutter_bloc/flutter_bloc.dart",
+    "package:intl/intl.dart",
+    "package:cashier/features/reports/cubit/reports_cubit.dart"
+  ]
+}

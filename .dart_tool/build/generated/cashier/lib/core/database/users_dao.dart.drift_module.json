@@ -1,0 +1,53 @@
+{
+  "elements": {
+    "UsersDao": {
+      "id": {
+        "library_uri": "package:cashier/core/database/users_dao.dart",
+        "name": "UsersDao"
+      },
+      "declaration": {
+        "source_uri": "package:cashier/core/database/users_dao.dart",
+        "offset": 210,
+        "name": "UsersDao"
+      },
+      "references": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "users"
+        }
+      ],
+      "type": "dao",
+      "tables": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "users"
+        }
+      ],
+      "views": [],
+      "includes": [],
+      "queries": [],
+      "dart_type": {
+        "elements": [
+          {
+            "lexeme": "UsersDao",
+            "import_uri": "package:cashier/core/database/users_dao.dart"
+          }
+        ]
+      },
+      "database": {
+        "elements": [
+          {
+            "lexeme": "AppDatabase",
+            "import_uri": "package:cashier/core/database/app_database.dart"
+          }
+        ]
+      }
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:crypto/crypto.dart",
+    "package:cashier/core/database/app_database.dart",
+    "package:cashier/core/database/tables.dart"
+  ]
+}

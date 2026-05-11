@@ -1,0 +1,52 @@
+{
+  "elements": {
+    "CategoriesDao": {
+      "id": {
+        "library_uri": "package:cashier/core/database/categories_dao.dart",
+        "name": "CategoriesDao"
+      },
+      "declaration": {
+        "source_uri": "package:cashier/core/database/categories_dao.dart",
+        "offset": 160,
+        "name": "CategoriesDao"
+      },
+      "references": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "categories"
+        }
+      ],
+      "type": "dao",
+      "tables": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "categories"
+        }
+      ],
+      "views": [],
+      "includes": [],
+      "queries": [],
+      "dart_type": {
+        "elements": [
+          {
+            "lexeme": "CategoriesDao",
+            "import_uri": "package:cashier/core/database/categories_dao.dart"
+          }
+        ]
+      },
+      "database": {
+        "elements": [
+          {
+            "lexeme": "AppDatabase",
+            "import_uri": "package:cashier/core/database/app_database.dart"
+          }
+        ]
+      }
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:cashier/core/database/app_database.dart",
+    "package:cashier/core/database/tables.dart"
+  ]
+}
