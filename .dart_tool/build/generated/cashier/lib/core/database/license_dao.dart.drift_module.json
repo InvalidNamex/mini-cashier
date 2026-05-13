@@ -1,0 +1,54 @@
+{
+  "elements": {
+    "LicenseDao": {
+      "id": {
+        "library_uri": "package:cashier/core/database/license_dao.dart",
+        "name": "LicenseDao"
+      },
+      "declaration": {
+        "source_uri": "package:cashier/core/database/license_dao.dart",
+        "offset": 246,
+        "name": "LicenseDao"
+      },
+      "references": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "app_licenses"
+        }
+      ],
+      "type": "dao",
+      "tables": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "app_licenses"
+        }
+      ],
+      "views": [],
+      "includes": [],
+      "queries": [],
+      "dart_type": {
+        "elements": [
+          {
+            "lexeme": "LicenseDao",
+            "import_uri": "package:cashier/core/database/license_dao.dart"
+          }
+        ]
+      },
+      "database": {
+        "elements": [
+          {
+            "lexeme": "AppDatabase",
+            "import_uri": "package:cashier/core/database/app_database.dart"
+          }
+        ]
+      }
+    }
+  },
+  "imports": [
+    "package:crypto/crypto.dart",
+    "package:drift/drift.dart",
+    "package:cashier/core/database/app_database.dart",
+    "package:cashier/core/database/tables.dart",
+    "package:cashier/core/constants.dart"
+  ]
+}

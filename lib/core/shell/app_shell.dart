@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/auth_cubit.dart';
+import '../database/app_database.dart';
+import '../services/db_export_service.dart';
 
 class AppShell extends StatelessWidget {
   final Widget child;
@@ -55,12 +57,27 @@ class AppShell extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: IconButton(
-                    icon: const Icon(Icons.logout, color: Colors.white70),
-                    tooltip: 'خروج',
-                    onPressed: () {
-                      context.read<AuthCubit>().logout();
-                    },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (isAdmin)
+                        IconButton(
+                          icon: const Icon(Icons.download_outlined,
+                              color: Colors.white70),
+                          tooltip: 'تصدير قاعدة البيانات',
+                          onPressed: () async {
+                            final db = context.read<AppDatabase>();
+                            await DbExportService.exportToFile(db);
+                          },
+                        ),
+                      IconButton(
+                        icon: const Icon(Icons.logout, color: Colors.white70),
+                        tooltip: 'خروج',
+                        onPressed: () {
+                          context.read<AuthCubit>().logout();
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),

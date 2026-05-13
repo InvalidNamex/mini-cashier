@@ -37,3 +37,22 @@ class OrderItems extends Table {
   IntColumn get quantity => integer().withDefault(const Constant(1))();
   TextColumn get note => text().nullable()();
 }
+
+/// Stores the application license / trial status.
+/// Only one row should exist at a time.
+class AppLicenses extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  /// 'infinite' or 'trial'
+  TextColumn get mode => text()();
+
+  /// Non-null when mode == 'trial'; the UTC instant when the trial expires.
+  DateTimeColumn get trialExpiresAt => dateTime().nullable()();
+
+  DateTimeColumn get updatedAt =>
+      dateTime().withDefault(currentDateAndTime)();
+
+  /// HMAC-SHA256 signature of (mode + trialExpiresAt + updatedAt).
+  /// If null or invalid, the record is considered tampered and the app suspends.
+  TextColumn get signature => text().nullable()();
+}

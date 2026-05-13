@@ -1,0 +1,1 @@
+ /Users/invalidnamex/Desktop/cashier/.dart_tool/flutter_build/a4429c5b8f0ea961d7a0ecbc55f6738a/dart_build_result.json:  /Users/invalidnamex/Desktop/cashier/.dart_tool/package_config.json /Users/invalidnamex/Desktop/cashier/pubspec.yaml /Users/invalidnamex/src/flutter/bin/cache/dart-sdk/version

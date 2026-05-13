@@ -1,0 +1,8 @@
+{
+  "elements": {},
+  "imports": [
+    "package:equatable/equatable.dart",
+    "package:flutter_bloc/flutter_bloc.dart",
+    "package:cashier/core/database/license_dao.dart"
+  ]
+}

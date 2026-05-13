@@ -1,0 +1,6 @@
+{
+  "elements": {},
+  "imports": [
+    "package:cashier/core/database/app_database.dart"
+  ]
+}

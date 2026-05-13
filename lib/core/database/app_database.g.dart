@@ -1647,6 +1647,372 @@ class OrderItemsCompanion extends UpdateCompanion<OrderItem> {
   }
 }
 
+class $AppLicensesTable extends AppLicenses
+    with TableInfo<$AppLicensesTable, AppLicense> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AppLicensesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _modeMeta = const VerificationMeta('mode');
+  @override
+  late final GeneratedColumn<String> mode = GeneratedColumn<String>(
+    'mode',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _trialExpiresAtMeta = const VerificationMeta(
+    'trialExpiresAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> trialExpiresAt =
+      GeneratedColumn<DateTime>(
+        'trial_expires_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _signatureMeta = const VerificationMeta(
+    'signature',
+  );
+  @override
+  late final GeneratedColumn<String> signature = GeneratedColumn<String>(
+    'signature',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    mode,
+    trialExpiresAt,
+    updatedAt,
+    signature,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'app_licenses';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AppLicense> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('mode')) {
+      context.handle(
+        _modeMeta,
+        mode.isAcceptableOrUnknown(data['mode']!, _modeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_modeMeta);
+    }
+    if (data.containsKey('trial_expires_at')) {
+      context.handle(
+        _trialExpiresAtMeta,
+        trialExpiresAt.isAcceptableOrUnknown(
+          data['trial_expires_at']!,
+          _trialExpiresAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('signature')) {
+      context.handle(
+        _signatureMeta,
+        signature.isAcceptableOrUnknown(data['signature']!, _signatureMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AppLicense map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AppLicense(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      mode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}mode'],
+      )!,
+      trialExpiresAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}trial_expires_at'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      signature: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}signature'],
+      ),
+    );
+  }
+
+  @override
+  $AppLicensesTable createAlias(String alias) {
+    return $AppLicensesTable(attachedDatabase, alias);
+  }
+}
+
+class AppLicense extends DataClass implements Insertable<AppLicense> {
+  final int id;
+
+  /// 'infinite' or 'trial'
+  final String mode;
+
+  /// Non-null when mode == 'trial'; the UTC instant when the trial expires.
+  final DateTime? trialExpiresAt;
+  final DateTime updatedAt;
+
+  /// HMAC-SHA256 signature of (mode + trialExpiresAt + updatedAt).
+  /// If null or invalid, the record is considered tampered and the app suspends.
+  final String? signature;
+  const AppLicense({
+    required this.id,
+    required this.mode,
+    this.trialExpiresAt,
+    required this.updatedAt,
+    this.signature,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['mode'] = Variable<String>(mode);
+    if (!nullToAbsent || trialExpiresAt != null) {
+      map['trial_expires_at'] = Variable<DateTime>(trialExpiresAt);
+    }
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || signature != null) {
+      map['signature'] = Variable<String>(signature);
+    }
+    return map;
+  }
+
+  AppLicensesCompanion toCompanion(bool nullToAbsent) {
+    return AppLicensesCompanion(
+      id: Value(id),
+      mode: Value(mode),
+      trialExpiresAt: trialExpiresAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(trialExpiresAt),
+      updatedAt: Value(updatedAt),
+      signature: signature == null && nullToAbsent
+          ? const Value.absent()
+          : Value(signature),
+    );
+  }
+
+  factory AppLicense.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AppLicense(
+      id: serializer.fromJson<int>(json['id']),
+      mode: serializer.fromJson<String>(json['mode']),
+      trialExpiresAt: serializer.fromJson<DateTime?>(json['trialExpiresAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      signature: serializer.fromJson<String?>(json['signature']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'mode': serializer.toJson<String>(mode),
+      'trialExpiresAt': serializer.toJson<DateTime?>(trialExpiresAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'signature': serializer.toJson<String?>(signature),
+    };
+  }
+
+  AppLicense copyWith({
+    int? id,
+    String? mode,
+    Value<DateTime?> trialExpiresAt = const Value.absent(),
+    DateTime? updatedAt,
+    Value<String?> signature = const Value.absent(),
+  }) => AppLicense(
+    id: id ?? this.id,
+    mode: mode ?? this.mode,
+    trialExpiresAt: trialExpiresAt.present
+        ? trialExpiresAt.value
+        : this.trialExpiresAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    signature: signature.present ? signature.value : this.signature,
+  );
+  AppLicense copyWithCompanion(AppLicensesCompanion data) {
+    return AppLicense(
+      id: data.id.present ? data.id.value : this.id,
+      mode: data.mode.present ? data.mode.value : this.mode,
+      trialExpiresAt: data.trialExpiresAt.present
+          ? data.trialExpiresAt.value
+          : this.trialExpiresAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      signature: data.signature.present ? data.signature.value : this.signature,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AppLicense(')
+          ..write('id: $id, ')
+          ..write('mode: $mode, ')
+          ..write('trialExpiresAt: $trialExpiresAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('signature: $signature')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, mode, trialExpiresAt, updatedAt, signature);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AppLicense &&
+          other.id == this.id &&
+          other.mode == this.mode &&
+          other.trialExpiresAt == this.trialExpiresAt &&
+          other.updatedAt == this.updatedAt &&
+          other.signature == this.signature);
+}
+
+class AppLicensesCompanion extends UpdateCompanion<AppLicense> {
+  final Value<int> id;
+  final Value<String> mode;
+  final Value<DateTime?> trialExpiresAt;
+  final Value<DateTime> updatedAt;
+  final Value<String?> signature;
+  const AppLicensesCompanion({
+    this.id = const Value.absent(),
+    this.mode = const Value.absent(),
+    this.trialExpiresAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.signature = const Value.absent(),
+  });
+  AppLicensesCompanion.insert({
+    this.id = const Value.absent(),
+    required String mode,
+    this.trialExpiresAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.signature = const Value.absent(),
+  }) : mode = Value(mode);
+  static Insertable<AppLicense> custom({
+    Expression<int>? id,
+    Expression<String>? mode,
+    Expression<DateTime>? trialExpiresAt,
+    Expression<DateTime>? updatedAt,
+    Expression<String>? signature,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (mode != null) 'mode': mode,
+      if (trialExpiresAt != null) 'trial_expires_at': trialExpiresAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (signature != null) 'signature': signature,
+    });
+  }
+
+  AppLicensesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? mode,
+    Value<DateTime?>? trialExpiresAt,
+    Value<DateTime>? updatedAt,
+    Value<String?>? signature,
+  }) {
+    return AppLicensesCompanion(
+      id: id ?? this.id,
+      mode: mode ?? this.mode,
+      trialExpiresAt: trialExpiresAt ?? this.trialExpiresAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      signature: signature ?? this.signature,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (mode.present) {
+      map['mode'] = Variable<String>(mode.value);
+    }
+    if (trialExpiresAt.present) {
+      map['trial_expires_at'] = Variable<DateTime>(trialExpiresAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (signature.present) {
+      map['signature'] = Variable<String>(signature.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AppLicensesCompanion(')
+          ..write('id: $id, ')
+          ..write('mode: $mode, ')
+          ..write('trialExpiresAt: $trialExpiresAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('signature: $signature')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1655,10 +2021,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ItemsTable items = $ItemsTable(this);
   late final $OrdersTable orders = $OrdersTable(this);
   late final $OrderItemsTable orderItems = $OrderItemsTable(this);
+  late final $AppLicensesTable appLicenses = $AppLicensesTable(this);
   late final UsersDao usersDao = UsersDao(this as AppDatabase);
   late final CategoriesDao categoriesDao = CategoriesDao(this as AppDatabase);
   late final ItemsDao itemsDao = ItemsDao(this as AppDatabase);
   late final OrdersDao ordersDao = OrdersDao(this as AppDatabase);
+  late final LicenseDao licenseDao = LicenseDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1669,6 +2037,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     items,
     orders,
     orderItems,
+    appLicenses,
   ];
 }
 
@@ -3384,6 +3753,202 @@ typedef $$OrderItemsTableProcessedTableManager =
       OrderItem,
       PrefetchHooks Function({bool orderId, bool itemId})
     >;
+typedef $$AppLicensesTableCreateCompanionBuilder =
+    AppLicensesCompanion Function({
+      Value<int> id,
+      required String mode,
+      Value<DateTime?> trialExpiresAt,
+      Value<DateTime> updatedAt,
+      Value<String?> signature,
+    });
+typedef $$AppLicensesTableUpdateCompanionBuilder =
+    AppLicensesCompanion Function({
+      Value<int> id,
+      Value<String> mode,
+      Value<DateTime?> trialExpiresAt,
+      Value<DateTime> updatedAt,
+      Value<String?> signature,
+    });
+
+class $$AppLicensesTableFilterComposer
+    extends Composer<_$AppDatabase, $AppLicensesTable> {
+  $$AppLicensesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get mode => $composableBuilder(
+    column: $table.mode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get trialExpiresAt => $composableBuilder(
+    column: $table.trialExpiresAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get signature => $composableBuilder(
+    column: $table.signature,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$AppLicensesTableOrderingComposer
+    extends Composer<_$AppDatabase, $AppLicensesTable> {
+  $$AppLicensesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get mode => $composableBuilder(
+    column: $table.mode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get trialExpiresAt => $composableBuilder(
+    column: $table.trialExpiresAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get signature => $composableBuilder(
+    column: $table.signature,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$AppLicensesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AppLicensesTable> {
+  $$AppLicensesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get mode =>
+      $composableBuilder(column: $table.mode, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get trialExpiresAt => $composableBuilder(
+    column: $table.trialExpiresAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get signature =>
+      $composableBuilder(column: $table.signature, builder: (column) => column);
+}
+
+class $$AppLicensesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AppLicensesTable,
+          AppLicense,
+          $$AppLicensesTableFilterComposer,
+          $$AppLicensesTableOrderingComposer,
+          $$AppLicensesTableAnnotationComposer,
+          $$AppLicensesTableCreateCompanionBuilder,
+          $$AppLicensesTableUpdateCompanionBuilder,
+          (
+            AppLicense,
+            BaseReferences<_$AppDatabase, $AppLicensesTable, AppLicense>,
+          ),
+          AppLicense,
+          PrefetchHooks Function()
+        > {
+  $$AppLicensesTableTableManager(_$AppDatabase db, $AppLicensesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AppLicensesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AppLicensesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AppLicensesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> mode = const Value.absent(),
+                Value<DateTime?> trialExpiresAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<String?> signature = const Value.absent(),
+              }) => AppLicensesCompanion(
+                id: id,
+                mode: mode,
+                trialExpiresAt: trialExpiresAt,
+                updatedAt: updatedAt,
+                signature: signature,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String mode,
+                Value<DateTime?> trialExpiresAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<String?> signature = const Value.absent(),
+              }) => AppLicensesCompanion.insert(
+                id: id,
+                mode: mode,
+                trialExpiresAt: trialExpiresAt,
+                updatedAt: updatedAt,
+                signature: signature,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$AppLicensesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AppLicensesTable,
+      AppLicense,
+      $$AppLicensesTableFilterComposer,
+      $$AppLicensesTableOrderingComposer,
+      $$AppLicensesTableAnnotationComposer,
+      $$AppLicensesTableCreateCompanionBuilder,
+      $$AppLicensesTableUpdateCompanionBuilder,
+      (
+        AppLicense,
+        BaseReferences<_$AppDatabase, $AppLicensesTable, AppLicense>,
+      ),
+      AppLicense,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3398,4 +3963,6 @@ class $AppDatabaseManager {
       $$OrdersTableTableManager(_db, _db.orders);
   $$OrderItemsTableTableManager get orderItems =>
       $$OrderItemsTableTableManager(_db, _db.orderItems);
+  $$AppLicensesTableTableManager get appLicenses =>
+      $$AppLicensesTableTableManager(_db, _db.appLicenses);
 }

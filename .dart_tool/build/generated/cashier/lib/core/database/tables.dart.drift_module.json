@@ -769,6 +769,151 @@
       "write_default_constraints": true,
       "custom_constraints": [],
       "attached_indices": []
+    },
+    "app_licenses": {
+      "id": {
+        "library_uri": "package:cashier/core/database/tables.dart",
+        "name": "app_licenses"
+      },
+      "declaration": {
+        "source_uri": "package:cashier/core/database/tables.dart",
+        "offset": 1572,
+        "name": "AppLicenses"
+      },
+      "references": [],
+      "type": "table",
+      "columns": [
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "id",
+          "nameInDart": "id",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 1616,
+            "name": "id"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "primary",
+              "is_auto_increment": true
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "mode",
+          "nameInDart": "mode",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 1697,
+            "name": "mode"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": "/// 'infinite' or 'trial'",
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": true,
+          "nameInSql": "trial_expires_at",
+          "nameInDart": "trialExpiresAt",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 1814,
+            "name": "trialExpiresAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": "/// Non-null when mode == 'trial'; the UTC instant when the trial expires.",
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": false,
+          "nameInSql": "updated_at",
+          "nameInDart": "updatedAt",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 1879,
+            "name": "updatedAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              {
+                "lexeme": "currentDateAndTime",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              }
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": true,
+          "nameInSql": "signature",
+          "nameInDart": "signature",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 2112,
+            "name": "signature"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": "/// HMAC-SHA256 signature of (mode + trialExpiresAt + updatedAt).\n/// If null or invalid, the record is considered tampered and the app suspends.",
+          "constraints": [],
+          "customConstraints": null
+        }
+      ],
+      "existing_data_class": null,
+      "table_constraints": [],
+      "custom_parent_class": null,
+      "interfaces_for_row_class": [],
+      "fixed_entity_info_name": null,
+      "base_dart_name": "AppLicenses",
+      "row_class_name": "AppLicense",
+      "companion_class_name": null,
+      "without_rowid": false,
+      "strict": false,
+      "write_default_constraints": true,
+      "custom_constraints": [],
+      "attached_indices": []
     }
   },
   "imports": [

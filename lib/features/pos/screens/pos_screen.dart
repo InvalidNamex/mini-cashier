@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/pos_cubit.dart';
 import '../bloc/pos_state.dart';
@@ -14,10 +15,32 @@ class PosScreen extends StatefulWidget {
 }
 
 class _PosScreenState extends State<PosScreen> {
+  late PosCubit _posCubit;
+
+  bool _handleKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.f12) {
+      final state = _posCubit.state;
+      if (state.activeTab?.cartItems.isNotEmpty == true && mounted) {
+        _doCheckout(context, _posCubit);
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   void initState() {
     super.initState();
-    context.read<PosCubit>().initialize();
+    _posCubit = context.read<PosCubit>();
+    _posCubit.initialize();
+    HardwareKeyboard.instance.addHandler(_handleKeyEvent);
+  }
+
+  @override
+  void dispose() {
+    HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
+    super.dispose();
   }
 
   @override
@@ -426,6 +449,30 @@ class _PosScreenState extends State<PosScreen> {
       orderItems: orderItems,
       cashierName: cashierUsername,
     );
-    await Printing.layoutPdf(onLayout: (_) async => pdfDoc.save());
+    final pdfBytes = await pdfDoc.save();
+
+    // Try to print directly to the default printer without a preview dialog.
+    // Falls back to layoutPdf on web or when no printer is available.
+    bool printed = false;
+    try {
+      final printers = await Printing.listPrinters();
+      if (printers.isNotEmpty) {
+        final printer = printers.firstWhere(
+          (p) => p.isDefault,
+          orElse: () => printers.first,
+        );
+        await Printing.directPrintPdf(
+          printer: printer,
+          onLayout: (_) async => pdfBytes,
+        );
+        printed = true;
+      }
+    } catch (_) {
+      // directPrintPdf is not supported on this platform (e.g. web).
+    }
+
+    if (!printed) {
+      await Printing.layoutPdf(onLayout: (_) async => pdfBytes);
+    }
   }
 }

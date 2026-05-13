@@ -7,7 +7,7 @@
       },
       "declaration": {
         "source_uri": "package:cashier/core/database/app_database.dart",
-        "offset": 442,
+        "offset": 434,
         "name": "AppDatabase"
       },
       "references": [
@@ -30,6 +30,10 @@
         {
           "library_uri": "package:cashier/core/database/tables.dart",
           "name": "order_items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "app_licenses"
         }
       ],
       "type": "database",
@@ -53,12 +57,16 @@
         {
           "library_uri": "package:cashier/core/database/tables.dart",
           "name": "order_items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "app_licenses"
         }
       ],
       "views": [],
       "includes": [],
       "queries": [],
-      "schema_version": 2,
+      "schema_version": 4,
       "daos": [
         {
           "library_uri": "package:cashier/core/database/users_dao.dart",
@@ -75,6 +83,10 @@
         {
           "library_uri": "package:cashier/core/database/orders_dao.dart",
           "name": "OrdersDao"
+        },
+        {
+          "library_uri": "package:cashier/core/database/license_dao.dart",
+          "name": "LicenseDao"
         }
       ],
       "has_constructor_arg": false
@@ -83,11 +95,11 @@
   "imports": [
     "package:drift/drift.dart",
     "package:drift_flutter/drift_flutter.dart",
-    "package:crypto/crypto.dart",
     "package:cashier/core/database/tables.dart",
     "package:cashier/core/database/users_dao.dart",
     "package:cashier/core/database/categories_dao.dart",
     "package:cashier/core/database/items_dao.dart",
-    "package:cashier/core/database/orders_dao.dart"
+    "package:cashier/core/database/orders_dao.dart",
+    "package:cashier/core/database/license_dao.dart"
   ]
 }

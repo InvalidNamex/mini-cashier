@@ -12,6 +12,8 @@
     "package:cashier/features/items/cubit/items_cubit.dart",
     "package:cashier/features/reports/cubit/reports_cubit.dart",
     "package:cashier/features/users/cubit/users_cubit.dart",
-    "package:cashier/features/pos/bloc/pos_cubit.dart"
+    "package:cashier/features/pos/bloc/pos_cubit.dart",
+    "package:cashier/features/license/license_cubit.dart",
+    "package:cashier/features/license/screens/suspended_screen.dart"
   ]
 }
