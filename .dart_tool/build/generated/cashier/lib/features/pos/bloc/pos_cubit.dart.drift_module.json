@@ -7,6 +7,7 @@
     "package:cashier/core/database/app_database.dart",
     "package:cashier/core/database/orders_dao.dart",
     "package:cashier/core/database/categories_dao.dart",
-    "package:cashier/core/database/items_dao.dart"
+    "package:cashier/core/database/items_dao.dart",
+    "package:cashier/core/database/periods_dao.dart"
   ]
 }

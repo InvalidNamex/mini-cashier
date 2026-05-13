@@ -1,0 +1,6 @@
+{
+  "elements": {},
+  "imports": [
+    "package:cashier/core/services/db_import_service_stub.dart"
+  ]
+}

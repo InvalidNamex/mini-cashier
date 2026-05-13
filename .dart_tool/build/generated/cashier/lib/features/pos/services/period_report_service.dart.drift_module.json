@@ -1,0 +1,10 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/services.dart",
+    "package:intl/intl.dart",
+    "package:pdf/pdf.dart",
+    "package:pdf/widgets.dart",
+    "package:cashier/core/database/app_database.dart"
+  ]
+}

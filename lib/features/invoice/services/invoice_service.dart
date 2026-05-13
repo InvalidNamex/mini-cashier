@@ -5,10 +5,10 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../../core/database/app_database.dart';
 
 class InvoiceService {
-  // 80 mm thermal roll width; height is calculated dynamically
+  // 76 mm usable width inside an 80 mm roll (2 mm margin each side)
   static const double _mmToPt = PdfPageFormat.mm;
-  static const double _pageWidth = 80 * _mmToPt;
-  static const double _margin = 4 * _mmToPt;
+  static const double _pageWidth = 76 * _mmToPt;
+  static const double _margin = 2 * _mmToPt;
 
   static Future<pw.Document> generate({
     required Order order,

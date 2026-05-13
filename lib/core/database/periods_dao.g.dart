@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'orders_dao.dart';
+part of 'periods_dao.dart';
 
 // ignore_for_file: type=lint
-mixin _$OrdersDaoMixin on DatabaseAccessor<AppDatabase> {
-  $UsersTable get users => attachedDatabase.users;
+mixin _$PeriodsDaoMixin on DatabaseAccessor<AppDatabase> {
   $PeriodsTable get periods => attachedDatabase.periods;
+  $UsersTable get users => attachedDatabase.users;
   $OrdersTable get orders => attachedDatabase.orders;
   $CategoriesTable get categories => attachedDatabase.categories;
   $ItemsTable get items => attachedDatabase.items;
   $OrderItemsTable get orderItems => attachedDatabase.orderItems;
-  OrdersDaoManager get managers => OrdersDaoManager(this);
+  PeriodsDaoManager get managers => PeriodsDaoManager(this);
 }
 
-class OrdersDaoManager {
-  final _$OrdersDaoMixin _db;
-  OrdersDaoManager(this._db);
-  $$UsersTableTableManager get users =>
-      $$UsersTableTableManager(_db.attachedDatabase, _db.users);
+class PeriodsDaoManager {
+  final _$PeriodsDaoMixin _db;
+  PeriodsDaoManager(this._db);
   $$PeriodsTableTableManager get periods =>
       $$PeriodsTableTableManager(_db.attachedDatabase, _db.periods);
+  $$UsersTableTableManager get users =>
+      $$UsersTableTableManager(_db.attachedDatabase, _db.users);
   $$OrdersTableTableManager get orders =>
       $$OrdersTableTableManager(_db.attachedDatabase, _db.orders);
   $$CategoriesTableTableManager get categories =>

@@ -7,7 +7,7 @@
       },
       "declaration": {
         "source_uri": "package:cashier/core/database/app_database.dart",
-        "offset": 434,
+        "offset": 482,
         "name": "AppDatabase"
       },
       "references": [
@@ -34,6 +34,10 @@
         {
           "library_uri": "package:cashier/core/database/tables.dart",
           "name": "app_licenses"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "periods"
         }
       ],
       "type": "database",
@@ -61,12 +65,16 @@
         {
           "library_uri": "package:cashier/core/database/tables.dart",
           "name": "app_licenses"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "periods"
         }
       ],
       "views": [],
       "includes": [],
       "queries": [],
-      "schema_version": 4,
+      "schema_version": 5,
       "daos": [
         {
           "library_uri": "package:cashier/core/database/users_dao.dart",
@@ -87,6 +95,10 @@
         {
           "library_uri": "package:cashier/core/database/license_dao.dart",
           "name": "LicenseDao"
+        },
+        {
+          "library_uri": "package:cashier/core/database/periods_dao.dart",
+          "name": "PeriodsDao"
         }
       ],
       "has_constructor_arg": false
@@ -100,6 +112,7 @@
     "package:cashier/core/database/categories_dao.dart",
     "package:cashier/core/database/items_dao.dart",
     "package:cashier/core/database/orders_dao.dart",
-    "package:cashier/core/database/license_dao.dart"
+    "package:cashier/core/database/license_dao.dart",
+    "package:cashier/core/database/periods_dao.dart"
   ]
 }

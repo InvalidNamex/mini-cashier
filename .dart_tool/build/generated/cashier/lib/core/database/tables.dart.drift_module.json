@@ -341,6 +341,109 @@
       "custom_constraints": [],
       "attached_indices": []
     },
+    "periods": {
+      "id": {
+        "library_uri": "package:cashier/core/database/tables.dart",
+        "name": "periods"
+      },
+      "declaration": {
+        "source_uri": "package:cashier/core/database/tables.dart",
+        "offset": 637,
+        "name": "Periods"
+      },
+      "references": [],
+      "type": "table",
+      "columns": [
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "id",
+          "nameInDart": "id",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 677,
+            "name": "id"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "primary",
+              "is_auto_increment": true
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": false,
+          "nameInSql": "start_timestamp",
+          "nameInDart": "startTimestamp",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 733,
+            "name": "startTimestamp"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              {
+                "lexeme": "currentDateAndTime",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              }
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": true,
+          "nameInSql": "end_timestamp",
+          "nameInDart": "endTimestamp",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 824,
+            "name": "endTimestamp"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        }
+      ],
+      "existing_data_class": null,
+      "table_constraints": [],
+      "custom_parent_class": null,
+      "interfaces_for_row_class": [],
+      "fixed_entity_info_name": null,
+      "base_dart_name": "Periods",
+      "row_class_name": "Period",
+      "companion_class_name": null,
+      "without_rowid": false,
+      "strict": false,
+      "write_default_constraints": true,
+      "custom_constraints": [],
+      "attached_indices": []
+    },
     "orders": {
       "id": {
         "library_uri": "package:cashier/core/database/tables.dart",
@@ -348,13 +451,17 @@
       },
       "declaration": {
         "source_uri": "package:cashier/core/database/tables.dart",
-        "offset": 637,
+        "offset": 874,
         "name": "Orders"
       },
       "references": [
         {
           "library_uri": "package:cashier/core/database/tables.dart",
           "name": "users"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "periods"
         }
       ],
       "type": "table",
@@ -368,7 +475,7 @@
           "nameInDart": "id",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 676,
+            "offset": 913,
             "name": "id"
           },
           "typeConverter": null,
@@ -394,7 +501,7 @@
           "nameInDart": "cashierId",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 727,
+            "offset": 964,
             "name": "cashierId"
           },
           "typeConverter": null,
@@ -422,6 +529,41 @@
         },
         {
           "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": true,
+          "nameInSql": "period_id",
+          "nameInDart": "periodId",
+          "declaration": {
+            "source_uri": "package:cashier/core/database/tables.dart",
+            "offset": 1029,
+            "name": "periodId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "foreign_key",
+              "column": {
+                "table": {
+                  "library_uri": "package:cashier/core/database/tables.dart",
+                  "name": "periods"
+                },
+                "name": "id"
+              },
+              "onUpdate": null,
+              "onDelete": null,
+              "initiallyDeferred": false
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
             "builtin": "dateTime"
           },
           "nullable": false,
@@ -429,7 +571,7 @@
           "nameInDart": "createdAt",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 797,
+            "offset": 1117,
             "name": "createdAt"
           },
           "typeConverter": null,
@@ -457,7 +599,7 @@
           "nameInDart": "status",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 873,
+            "offset": 1193,
             "name": "status"
           },
           "typeConverter": null,
@@ -487,7 +629,7 @@
           "nameInDart": "total",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 946,
+            "offset": 1266,
             "name": "total"
           },
           "typeConverter": null,
@@ -517,7 +659,7 @@
           "nameInDart": "notes",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1015,
+            "offset": 1335,
             "name": "notes"
           },
           "typeConverter": null,
@@ -551,7 +693,7 @@
       },
       "declaration": {
         "source_uri": "package:cashier/core/database/tables.dart",
-        "offset": 1054,
+        "offset": 1374,
         "name": "OrderItems"
       },
       "references": [
@@ -575,7 +717,7 @@
           "nameInDart": "id",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1097,
+            "offset": 1417,
             "name": "id"
           },
           "typeConverter": null,
@@ -601,7 +743,7 @@
           "nameInDart": "orderId",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1148,
+            "offset": 1468,
             "name": "orderId"
           },
           "typeConverter": null,
@@ -636,7 +778,7 @@
           "nameInDart": "itemId",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1212,
+            "offset": 1532,
             "name": "itemId"
           },
           "typeConverter": null,
@@ -671,7 +813,7 @@
           "nameInDart": "itemNameSnapshot",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1275,
+            "offset": 1595,
             "name": "itemNameSnapshot"
           },
           "typeConverter": null,
@@ -692,7 +834,7 @@
           "nameInDart": "unitPriceSnapshot",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1322,
+            "offset": 1642,
             "name": "unitPriceSnapshot"
           },
           "typeConverter": null,
@@ -713,7 +855,7 @@
           "nameInDart": "quantity",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1369,
+            "offset": 1689,
             "name": "quantity"
           },
           "typeConverter": null,
@@ -743,7 +885,7 @@
           "nameInDart": "note",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1442,
+            "offset": 1762,
             "name": "note"
           },
           "typeConverter": null,
@@ -777,7 +919,7 @@
       },
       "declaration": {
         "source_uri": "package:cashier/core/database/tables.dart",
-        "offset": 1572,
+        "offset": 1892,
         "name": "AppLicenses"
       },
       "references": [],
@@ -792,7 +934,7 @@
           "nameInDart": "id",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1616,
+            "offset": 1936,
             "name": "id"
           },
           "typeConverter": null,
@@ -818,7 +960,7 @@
           "nameInDart": "mode",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1697,
+            "offset": 2017,
             "name": "mode"
           },
           "typeConverter": null,
@@ -839,7 +981,7 @@
           "nameInDart": "trialExpiresAt",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1814,
+            "offset": 2134,
             "name": "trialExpiresAt"
           },
           "typeConverter": null,
@@ -860,7 +1002,7 @@
           "nameInDart": "updatedAt",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 1879,
+            "offset": 2199,
             "name": "updatedAt"
           },
           "typeConverter": null,
@@ -888,7 +1030,7 @@
           "nameInDart": "signature",
           "declaration": {
             "source_uri": "package:cashier/core/database/tables.dart",
-            "offset": 2112,
+            "offset": 2432,
             "name": "signature"
           },
           "typeConverter": null,

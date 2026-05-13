@@ -5,6 +5,7 @@ import '../bloc/pos_cubit.dart';
 import '../bloc/pos_state.dart';
 import '../../../core/database/orders_dao.dart';
 import '../../invoice/services/invoice_service.dart';
+import '../services/period_report_service.dart';
 import 'package:printing/printing.dart';
 
 class PosScreen extends StatefulWidget {
@@ -254,6 +255,23 @@ class _PosScreenState extends State<PosScreen> {
             textAlign: TextAlign.center,
           ),
         ),
+        // Close-period button
+        Padding(
+          padding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          child: OutlinedButton.icon(
+            icon: const Icon(Icons.lock_clock_outlined,
+                color: Color(0xFF1B6B4A)),
+            label: Text(
+              'إغلاق الفترة${state.currentPeriodId != null ? " (${state.currentPeriodId})" : ""}',
+              style: const TextStyle(color: Color(0xFF1B6B4A)),
+            ),
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(color: Color(0xFF1B6B4A)),
+            ),
+            onPressed: () => _doClosePeriod(ctx, cubit),
+          ),
+        ),
         Expanded(
           child: cartItems.isEmpty
               ? const Center(
@@ -470,6 +488,70 @@ class _PosScreenState extends State<PosScreen> {
     } catch (_) {
       // directPrintPdf is not supported on this platform (e.g. web).
     }
+
+    if (!printed) {
+      await Printing.layoutPdf(onLayout: (_) async => pdfBytes);
+    }
+  }
+
+  Future<void> _doClosePeriod(BuildContext ctx, PosCubit cubit) async {
+    // Confirm
+    final confirmed = await showDialog<bool>(
+      context: ctx,
+      builder: (dlgCtx) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.lock_clock_outlined, color: Color(0xFF1B6B4A)),
+            SizedBox(width: 8),
+            Text('إغلاق الفترة'),
+          ],
+        ),
+        content: const Text(
+          'هل تريد إغلاق الفترة الحالية؟\n'
+          'سيتم طباعة تقرير المبيعات حسب الفئة وبدء فترة جديدة.',
+          style: TextStyle(height: 1.6),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dlgCtx).pop(false),
+            child: const Text('إلغاء'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF1B6B4A)),
+            onPressed: () => Navigator.of(dlgCtx).pop(true),
+            child: const Text('إغلاق وطباعة',
+                style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !ctx.mounted) return;
+
+    final result = await cubit.closePeriod();
+    if (result == null || !ctx.mounted) return;
+
+    final pdfDoc = await PeriodReportService.generate(
+      period: result.period,
+      categoryRevenues: result.categoryRevenues,
+    );
+    final pdfBytes = await pdfDoc.save();
+
+    bool printed = false;
+    try {
+      final printers = await Printing.listPrinters();
+      if (printers.isNotEmpty) {
+        final printer = printers.firstWhere(
+          (p) => p.isDefault,
+          orElse: () => printers.first,
+        );
+        await Printing.directPrintPdf(
+          printer: printer,
+          onLayout: (_) async => pdfBytes,
+        );
+        printed = true;
+      }
+    } catch (_) {}
 
     if (!printed) {
       await Printing.layoutPdf(onLayout: (_) async => pdfBytes);

@@ -5,11 +5,19 @@ import '../../../core/database/app_database.dart';
 import '../../../core/database/orders_dao.dart';
 import '../../../core/database/categories_dao.dart';
 import '../../../core/database/items_dao.dart';
+import '../../../core/database/periods_dao.dart';
+
+class PeriodCloseResult {
+  final Period period;
+  final List<Map<String, dynamic>> categoryRevenues;
+  PeriodCloseResult({required this.period, required this.categoryRevenues});
+}
 
 class PosCubit extends Cubit<PosState> {
   final OrdersDao _ordersDao;
   final CategoriesDao _categoriesDao;
   final ItemsDao _itemsDao;
+  final PeriodsDao _periodsDao;
   final int cashierId;
   final String cashierName;
   final _uuid = const Uuid();
@@ -20,15 +28,23 @@ class PosCubit extends Cubit<PosState> {
     required OrdersDao ordersDao,
     required CategoriesDao categoriesDao,
     required ItemsDao itemsDao,
+    required PeriodsDao periodsDao,
   })  : _ordersDao = ordersDao,
         _categoriesDao = categoriesDao,
         _itemsDao = itemsDao,
+        _periodsDao = periodsDao,
         super(const PosState());
 
   Future<void> initialize() async {
     emit(state.copyWith(isLoading: true));
     final cats = await _categoriesDao.allCategories();
     final allItems = await _itemsDao.allItems();
+
+    // Resolve or create the current period
+    Period? openPeriod = await _periodsDao.getOpenPeriod();
+    openPeriod ??= await _periodsDao
+        .createPeriod()
+        .then((id) => _periodsDao.getPeriod(id));
 
     // Restore open orders as tabs
     final openOrders = await _ordersDao.openOrders();
@@ -63,6 +79,7 @@ class PosCubit extends Cubit<PosState> {
       categories: cats,
       items: allItems,
       isLoading: false,
+      currentPeriodId: () => openPeriod?.id,
     ));
   }
 
@@ -102,7 +119,8 @@ class PosCubit extends Cubit<PosState> {
     // Ensure order exists in DB
     int orderId;
     if (activeTab.orderId == null) {
-      orderId = await _ordersDao.createOrder(cashierId);
+      orderId = await _ordersDao.createOrder(cashierId,
+          periodId: state.currentPeriodId);
     } else {
       orderId = activeTab.orderId!;
     }
@@ -259,6 +277,29 @@ class PosCubit extends Cubit<PosState> {
         .map((t) => t.tabId == activeTab.tabId ? newTab : t)
         .toList();
     emit(state.copyWith(tabs: newTabs, activeTabId: newTab.tabId));
+  }
+
+  /// Closes the current period, generates report data, starts a new period.
+  /// Returns null if there is no active period.
+  Future<PeriodCloseResult?> closePeriod() async {
+    final periodId = state.currentPeriodId;
+    if (periodId == null) return null;
+
+    final categoryRevenues =
+        await _periodsDao.revenueByCategoryForPeriod(periodId);
+    await _periodsDao.closePeriod(periodId);
+    final closedPeriod = await _periodsDao.getPeriod(periodId);
+    if (closedPeriod == null) return null;
+
+    // Start a fresh period
+    final newId = await _periodsDao.createPeriod();
+    final newPeriod = await _periodsDao.getPeriod(newId);
+    emit(state.copyWith(currentPeriodId: () => newPeriod?.id));
+
+    return PeriodCloseResult(
+      period: closedPeriod,
+      categoryRevenues: categoryRevenues,
+    );
   }
 
   void _updateTab(PosTab updated) {

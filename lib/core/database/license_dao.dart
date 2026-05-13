@@ -70,4 +70,18 @@ class LicenseDao extends DatabaseAccessor<AppDatabase>
       ),
     );
   }
+
+  /// Restores a trial license with a specific expiry (used during import).
+  Future<void> setTrialWithExpiry(DateTime expires) async {
+    final utc = expires.toUtc();
+    final sig = _sign('trial', utc);
+    await delete(appLicenses).go();
+    await into(appLicenses).insert(
+      AppLicensesCompanion.insert(
+        mode: 'trial',
+        trialExpiresAt: Value(utc),
+        signature: Value(sig),
+      ),
+    );
+  }
 }

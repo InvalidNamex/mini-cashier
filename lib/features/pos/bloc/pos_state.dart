@@ -77,6 +77,7 @@ class PosState extends Equatable {
   final List<Item> items;
   final int? selectedCategoryId;
   final bool isLoading;
+  final int? currentPeriodId;
 
   const PosState({
     this.tabs = const [],
@@ -85,6 +86,7 @@ class PosState extends Equatable {
     this.items = const [],
     this.selectedCategoryId,
     this.isLoading = false,
+    this.currentPeriodId,
   });
 
   PosTab? get activeTab {
@@ -107,6 +109,7 @@ class PosState extends Equatable {
     List<Item>? items,
     int? Function()? selectedCategoryId,
     bool? isLoading,
+    int? Function()? currentPeriodId,
   }) =>
       PosState(
         tabs: tabs ?? this.tabs,
@@ -117,9 +120,12 @@ class PosState extends Equatable {
             ? selectedCategoryId()
             : this.selectedCategoryId,
         isLoading: isLoading ?? this.isLoading,
+        currentPeriodId: currentPeriodId != null
+            ? currentPeriodId()
+            : this.currentPeriodId,
       );
 
   @override
   List<Object?> get props =>
-      [tabs, activeTabId, categories, items, selectedCategoryId, isLoading];
+      [tabs, activeTabId, categories, items, selectedCategoryId, isLoading, currentPeriodId];
 }

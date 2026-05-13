@@ -16,8 +16,12 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
 
   // --- Orders ---
 
-  Future<int> createOrder(int cashierId) => into(orders).insert(
-        OrdersCompanion.insert(cashierId: cashierId),
+  Future<int> createOrder(int cashierId, {int? periodId}) =>
+      into(orders).insert(
+        OrdersCompanion.insert(
+          cashierId: cashierId,
+          periodId: Value(periodId),
+        ),
       );
 
   Future<List<Order>> openOrders() =>

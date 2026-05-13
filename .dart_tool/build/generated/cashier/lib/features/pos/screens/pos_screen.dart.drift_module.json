@@ -8,6 +8,7 @@
     "package:cashier/features/pos/bloc/pos_state.dart",
     "package:cashier/core/database/orders_dao.dart",
     "package:cashier/features/invoice/services/invoice_service.dart",
+    "package:cashier/features/pos/services/period_report_service.dart",
     "package:printing/printing.dart"
   ]
 }

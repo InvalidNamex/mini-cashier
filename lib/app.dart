@@ -50,6 +50,7 @@ class _CashierAppState extends State<CashierApp> {
         RepositoryProvider.value(value: widget.db.categoriesDao),
         RepositoryProvider.value(value: widget.db.itemsDao),
         RepositoryProvider.value(value: widget.db.usersDao),
+        RepositoryProvider.value(value: widget.db.periodsDao),
         RepositoryProvider.value(value: widget.db),
       ],
       child: MultiBlocProvider(
@@ -121,6 +122,7 @@ class _CashierAppState extends State<CashierApp> {
                           ordersDao: widget.db.ordersDao,
                           categoriesDao: widget.db.categoriesDao,
                           itemsDao: widget.db.itemsDao,
+                          periodsDao: widget.db.periodsDao,
                         )
                       : PosCubit(
                           cashierId: 0,
@@ -128,6 +130,7 @@ class _CashierAppState extends State<CashierApp> {
                           ordersDao: widget.db.ordersDao,
                           categoriesDao: widget.db.categoriesDao,
                           itemsDao: widget.db.itemsDao,
+                          periodsDao: widget.db.periodsDao,
                         ),
                   child: MaterialApp.router(
                     debugShowCheckedModeBanner: false,

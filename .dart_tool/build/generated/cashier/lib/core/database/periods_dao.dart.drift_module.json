@@ -1,0 +1,84 @@
+{
+  "elements": {
+    "PeriodsDao": {
+      "id": {
+        "library_uri": "package:cashier/core/database/periods_dao.dart",
+        "name": "PeriodsDao"
+      },
+      "declaration": {
+        "source_uri": "package:cashier/core/database/periods_dao.dart",
+        "offset": 193,
+        "name": "PeriodsDao"
+      },
+      "references": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "periods"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "orders"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "order_items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "categories"
+        }
+      ],
+      "type": "dao",
+      "tables": [
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "periods"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "orders"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "order_items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "items"
+        },
+        {
+          "library_uri": "package:cashier/core/database/tables.dart",
+          "name": "categories"
+        }
+      ],
+      "views": [],
+      "includes": [],
+      "queries": [],
+      "dart_type": {
+        "elements": [
+          {
+            "lexeme": "PeriodsDao",
+            "import_uri": "package:cashier/core/database/periods_dao.dart"
+          }
+        ]
+      },
+      "database": {
+        "elements": [
+          {
+            "lexeme": "AppDatabase",
+            "import_uri": "package:cashier/core/database/app_database.dart"
+          }
+        ]
+      }
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:cashier/core/database/app_database.dart",
+    "package:cashier/core/database/tables.dart"
+  ]
+}

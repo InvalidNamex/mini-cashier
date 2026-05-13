@@ -19,9 +19,18 @@ class Items extends Table {
   RealColumn get price => real()();
 }
 
+class Periods extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  DateTimeColumn get startTimestamp =>
+      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get endTimestamp => dateTime().nullable()();
+}
+
 class Orders extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get cashierId => integer().references(Users, #id)();
+  IntColumn get periodId =>
+      integer().nullable().references(Periods, #id)();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   TextColumn get status => text().withDefault(const Constant('open'))();
   RealColumn get total => real().withDefault(const Constant(0.0))();
