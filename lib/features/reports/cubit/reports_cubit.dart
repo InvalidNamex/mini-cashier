@@ -4,7 +4,7 @@ import '../../../core/database/orders_dao.dart';
 
 part 'reports_state.dart';
 
-enum ReportType { daily, byCategory, byItem, dateRange, cashFlow }
+enum ReportType { daily, byCategory, byItem, dateRange, cashFlow, byCategoryDetailed }
 
 class ReportsCubit extends Cubit<ReportsState> {
   final OrdersDao _dao;
@@ -37,6 +37,9 @@ class ReportsCubit extends Cubit<ReportsState> {
           break;
         case ReportType.byItem:
           data = await _dao.revenueByItem(state.from, state.to);
+          break;
+        case ReportType.byCategoryDetailed:
+          data = await _dao.revenueByCategoryWithItems(state.from, state.to);
           break;
         case ReportType.dateRange:
           final orders = await _dao.paidOrdersInRange(state.from, state.to);

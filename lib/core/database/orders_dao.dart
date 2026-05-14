@@ -169,6 +169,76 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
     return byItem.values.toList();
   }
 
+  // Detailed revenue grouped by category, with each item listed under its category.
+  // Returns a flat list with 'rowType': 'category' or 'item' for rendering.
+  Future<List<Map<String, dynamic>>> revenueByCategoryWithItems(
+      DateTime from, DateTime to) async {
+    final rows = await paidOrdersWithItemsInRange(from, to);
+    // Ordered map to preserve insertion/sort order
+    final Map<int, ({String name, double revenue, Map<int, Map<String, dynamic>> items})> byCategory = {};
+
+    for (final row in rows) {
+      for (final oi in row.items) {
+        final item = await (select(items)
+              ..where((i) => i.id.equals(oi.itemId)))
+            .getSingleOrNull();
+        if (item == null) continue;
+        final cat = await (select(categories)
+              ..where((c) => c.id.equals(item.categoryId)))
+            .getSingleOrNull();
+        if (cat == null) continue;
+        final revenue = oi.unitPriceSnapshot * oi.quantity;
+        if (!byCategory.containsKey(cat.id)) {
+          byCategory[cat.id] = (name: cat.name, revenue: 0.0, items: {});
+        }
+        final entry = byCategory[cat.id]!;
+        byCategory[cat.id] = (
+          name: entry.name,
+          revenue: entry.revenue + revenue,
+          items: entry.items,
+        );
+        entry.items.update(
+          oi.itemId,
+          (v) {
+            v['revenue'] = (v['revenue'] as double) + revenue;
+            v['quantity'] = (v['quantity'] as int) + oi.quantity;
+            return v;
+          },
+          ifAbsent: () => {
+            'itemName': oi.itemNameSnapshot,
+            'revenue': revenue,
+            'quantity': oi.quantity,
+          },
+        );
+      }
+    }
+
+    // Sort categories by revenue descending, flatten to list with row markers
+    final sorted = byCategory.entries.toList()
+      ..sort((a, b) => b.value.revenue.compareTo(a.value.revenue));
+
+    final result = <Map<String, dynamic>>[];
+    for (final entry in sorted) {
+      result.add({
+        'rowType': 'category',
+        'categoryName': entry.value.name,
+        'revenue': entry.value.revenue,
+      });
+      final itemsSorted = entry.value.items.values.toList()
+        ..sort((a, b) =>
+            (b['revenue'] as double).compareTo(a['revenue'] as double));
+      for (final item in itemsSorted) {
+        result.add({
+          'rowType': 'item',
+          'itemName': item['itemName'] as String,
+          'quantity': item['quantity'] as int,
+          'revenue': item['revenue'] as double,
+        });
+      }
+    }
+    return result;
+  }
+
   // Daily totals in range
   Future<List<Map<String, dynamic>>> dailySales(
       DateTime from, DateTime to) async {

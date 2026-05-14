@@ -42,7 +42,10 @@ class InvoiceService {
     final pageFormat = PdfPageFormat(
       _pageWidth,
       estimatedH,
-      marginAll: _margin,
+      marginLeft: _margin + 10,
+      marginRight: _margin + 10,
+      marginTop: _margin,
+      marginBottom: _margin,
     );
 
     final doc = pw.Document();

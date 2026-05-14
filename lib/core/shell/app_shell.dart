@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:window_manager/window_manager.dart';
 import '../../features/auth/auth_cubit.dart';
 import '../../features/license/license_cubit.dart';
+import '../../features/pos/bloc/pos_cubit.dart';
 import '../database/app_database.dart';
+import '../database/periods_dao.dart';
 import '../services/db_export_service.dart';
 import '../services/db_import_service.dart';
 
@@ -15,8 +18,26 @@ class AppShell extends StatefulWidget {
   State<AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
+class _AppShellState extends State<AppShell> with WindowListener {
   bool _busy = false;
+
+  @override
+  void initState() {
+    super.initState();
+    windowManager.addListener(this);
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  /// Called by window_manager when the OS window-close button is pressed.
+  @override
+  void onWindowClose() async {
+    await _handleExitRequest(isAppClose: true);
+  }
 
   // ---------------------------------------------------------------------------
   // Admin password verification
@@ -97,6 +118,81 @@ class _AppShellState extends State<AppShell> {
     );
     ctrl.dispose();
     return confirmed == true;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Logout / close confirmation
+  // ---------------------------------------------------------------------------
+
+  /// Shows the combined exit/logout dialog.
+  /// [isAppClose] = true when triggered by the OS window-close button.
+  /// Asks for password, offers to end current period, then acts.
+  Future<void> _handleExitRequest({required bool isAppClose}) async {
+    if (!mounted) return;
+
+    // Step 1 — verify the current user's login password
+    final passwordOk = await _askAdminPassword();
+    if (!passwordOk || !mounted) return;
+
+    // Step 2 — ask whether to close the current period
+    final periodsDao = context.read<PeriodsDao>();
+    final openPeriod = await periodsDao.getOpenPeriod();
+    bool closePeriodChoice = false;
+
+    if (openPeriod != null && mounted) {
+      final choice = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (dlgCtx) => AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.lock_clock_outlined, color: Color(0xFF1B6B4A)),
+              SizedBox(width: 8),
+              Text('إغلاق الفترة'),
+            ],
+          ),
+          content: const Text(
+            'هل تريد إغلاق الفترة الحالية قبل الخروج؟\n'
+            'سيتم حفظ جميع المبيعات والمعاملات.',
+            style: TextStyle(height: 1.6),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dlgCtx).pop(false),
+              child: const Text('لا، اتركها مفتوحة'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1B6B4A)),
+              onPressed: () => Navigator.of(dlgCtx).pop(true),
+              child: const Text('نعم، أغلق الفترة',
+                  style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
+      );
+      closePeriodChoice = choice == true;
+    }
+
+    if (!mounted) return;
+
+    // Step 3 — close the period if requested
+    if (closePeriodChoice && openPeriod != null) {
+      try {
+        final posCubit = context.read<PosCubit>();
+        await posCubit.closePeriod();
+      } catch (_) {
+        // PosCubit might not be available; fall back to direct DAO call
+        if (mounted) await periodsDao.closePeriod(openPeriod.id);
+      }
+    }
+
+    // Step 4 — logout or close window
+    if (isAppClose) {
+      await windowManager.destroy();
+    } else {
+      if (mounted) context.read<AuthCubit>().logout();
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -249,7 +345,7 @@ class _AppShellState extends State<AppShell> {
                                 color: Colors.white70),
                             tooltip: 'خروج',
                             onPressed: () =>
-                                context.read<AuthCubit>().logout(),
+                                _handleExitRequest(isAppClose: false),
                           ),
                         ],
                       ),

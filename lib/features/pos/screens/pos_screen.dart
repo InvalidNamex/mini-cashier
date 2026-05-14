@@ -534,6 +534,7 @@ class _PosScreenState extends State<PosScreen> {
     final pdfDoc = await PeriodReportService.generate(
       period: result.period,
       categoryRevenues: result.categoryRevenues,
+      cashierName: cubit.cashierName,
     );
     final pdfBytes = await pdfDoc.save();
 

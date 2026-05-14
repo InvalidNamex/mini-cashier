@@ -14,6 +14,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   static const _typeLabels = {
     ReportType.daily: 'ملخص يومي',
     ReportType.byCategory: 'مبيعات حسب الفئة',
+    ReportType.byCategoryDetailed: 'مبيعات مفصّلة حسب الفئة',
     ReportType.byItem: 'مبيعات حسب الصنف',
     ReportType.dateRange: 'تقرير تاريخي',
     ReportType.cashFlow: 'تدفق نقدي',
@@ -101,6 +102,79 @@ class _ReportsScreenState extends State<ReportsScreen> {
     );
   }
 
+  Widget _buildDetailedCategoryTable(List<Map<String, dynamic>> data) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: data.map((row) {
+          if (row['rowType'] == 'category') {
+            final revenue = (row['revenue'] as double).toStringAsFixed(2);
+            return Container(
+              color: const Color(0xFFE8F5E9),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              margin: const EdgeInsets.only(top: 8),
+              child: Row(
+                children: [
+                  const Icon(Icons.folder_outlined,
+                      size: 18, color: Color(0xFF1B6B4A)),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      row['categoryName'] as String,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                  ),
+                  Text(
+                    '$revenue ج.م',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Color(0xFF1B6B4A)),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            final qty = row['quantity'] as int;
+            final revenue = (row['revenue'] as double).toStringAsFixed(2);
+            return Container(
+              padding: const EdgeInsets.only(
+                  right: 40, left: 16, top: 6, bottom: 6),
+              decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(color: Color(0xFFEEEEEE))),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: Text(row['itemName'] as String,
+                        style: const TextStyle(fontSize: 13)),
+                  ),
+                  SizedBox(
+                    width: 80,
+                    child: Text('الكمية: $qty',
+                        style: const TextStyle(
+                            fontSize: 12, color: Colors.black54)),
+                  ),
+                  SizedBox(
+                    width: 110,
+                    child: Text('$revenue ج.م',
+                        style: const TextStyle(fontSize: 13),
+                        textAlign: TextAlign.end),
+                  ),
+                ],
+              ),
+            );
+          }
+        }).toList(),
+      ),
+    );
+  }
+
   Widget _buildTable(ReportsState state) {
     switch (state.type) {
       case ReportType.daily:
@@ -125,6 +199,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
             ];
           }).toList(),
         );
+      case ReportType.byCategoryDetailed:
+        return _buildDetailedCategoryTable(state.data);
       case ReportType.byItem:
         return _dataTable(
           columns: const ['الصنف', 'الكمية المباعة', 'الإيراد'],

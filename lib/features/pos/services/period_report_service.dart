@@ -13,6 +13,7 @@ class PeriodReportService {
   static Future<pw.Document> generate({
     required Period period,
     required List<Map<String, dynamic>> categoryRevenues,
+    required String cashierName,
   }) async {
     final fontData =
         await rootBundle.load('assets/fonts/Cairo-Regular.ttf');
@@ -28,10 +29,10 @@ class PeriodReportService {
     final totalStyle = pw.TextStyle(
         font: font, fontSize: 11, fontWeight: pw.FontWeight.bold);
 
-    final startStr = DateFormat('yyyy/MM/dd – HH:mm')
+    final startStr = DateFormat('yyyy/MM/dd')
         .format(period.startTimestamp.toLocal());
     final endStr = period.endTimestamp != null
-        ? DateFormat('yyyy/MM/dd – HH:mm')
+        ? DateFormat('yyyy/MM/dd')
             .format(period.endTimestamp!.toLocal())
         : '–';
 
@@ -44,7 +45,10 @@ class PeriodReportService {
     final pageFormat = PdfPageFormat(
       _pageWidth,
       estimatedH,
-      marginAll: _margin,
+      marginLeft: _margin + 10,
+      marginRight: _margin + 10,
+      marginTop: _margin,
+      marginBottom: _margin,
     );
 
     final doc = pw.Document();
@@ -64,8 +68,10 @@ class PeriodReportService {
               pw.Center(
                 child:
                     pw.Text('الفترة رقم ${period.id}', style: subStyle),
-              ),
-              pw.SizedBox(height: 3),
+              ),              pw.SizedBox(height: 2),
+              pw.Center(
+                child: pw.Text('كاشير: $cashierName', style: subStyle),
+              ),              pw.SizedBox(height: 3),
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
