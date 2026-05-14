@@ -34,9 +34,60 @@ class _AppShellState extends State<AppShell> with WindowListener {
   }
 
   /// Called by window_manager when the OS window-close button is pressed.
+  /// Only asks whether to close the current period, then exits immediately.
   @override
   void onWindowClose() async {
-    await _handleExitRequest(isAppClose: true);
+    await _handleWindowClose();
+  }
+
+  /// X-button handler: offer to close the open period, then exit.
+  Future<void> _handleWindowClose() async {
+    if (!mounted) return;
+    final periodsDao = context.read<PeriodsDao>();
+    final openPeriod = await periodsDao.getOpenPeriod();
+
+    if (openPeriod != null && mounted) {
+      final choice = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (dlgCtx) => AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.lock_clock_outlined, color: Color(0xFF1B6B4A)),
+              SizedBox(width: 8),
+              Text('إغلاق الفترة'),
+            ],
+          ),
+          content: const Text(
+            'هل تريد إغلاق الفترة الحالية قبل الخروج؟',
+            style: TextStyle(height: 1.6),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dlgCtx).pop(false),
+              child: const Text('لا، اتركها مفتوحة'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1B6B4A)),
+              onPressed: () => Navigator.of(dlgCtx).pop(true),
+              child: const Text('نعم، أغلق الفترة',
+                  style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
+      );
+
+      if (choice == true && mounted) {
+        try {
+          await context.read<PosCubit>().closePeriod();
+        } catch (_) {
+          await periodsDao.closePeriod(openPeriod.id);
+        }
+      }
+    }
+
+    await windowManager.destroy();
   }
 
   // ---------------------------------------------------------------------------
@@ -121,13 +172,11 @@ class _AppShellState extends State<AppShell> with WindowListener {
   }
 
   // ---------------------------------------------------------------------------
-  // Logout / close confirmation
+  // Logout confirmation (password-protected)
   // ---------------------------------------------------------------------------
 
-  /// Shows the combined exit/logout dialog.
-  /// [isAppClose] = true when triggered by the OS window-close button.
-  /// Asks for password, offers to end current period, then acts.
-  Future<void> _handleExitRequest({required bool isAppClose}) async {
+  /// Logout button handler: verify password, offer to close period, then logout.
+  Future<void> _handleLogout() async {
     if (!mounted) return;
 
     // Step 1 — verify the current user's login password
@@ -179,20 +228,14 @@ class _AppShellState extends State<AppShell> with WindowListener {
     // Step 3 — close the period if requested
     if (closePeriodChoice && openPeriod != null) {
       try {
-        final posCubit = context.read<PosCubit>();
-        await posCubit.closePeriod();
+        await context.read<PosCubit>().closePeriod();
       } catch (_) {
-        // PosCubit might not be available; fall back to direct DAO call
         if (mounted) await periodsDao.closePeriod(openPeriod.id);
       }
     }
 
-    // Step 4 — logout or close window
-    if (isAppClose) {
-      await windowManager.destroy();
-    } else {
-      if (mounted) context.read<AuthCubit>().logout();
-    }
+    // Step 4 — logout
+    if (mounted) context.read<AuthCubit>().logout();
   }
 
   // ---------------------------------------------------------------------------
@@ -344,8 +387,7 @@ class _AppShellState extends State<AppShell> with WindowListener {
                             icon: const Icon(Icons.logout,
                                 color: Colors.white70),
                             tooltip: 'خروج',
-                            onPressed: () =>
-                                _handleExitRequest(isAppClose: false),
+                            onPressed: () => _handleLogout(),
                           ),
                         ],
                       ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:window_manager/window_manager.dart';
 import '../auth_cubit.dart';
 import '../../../core/constants.dart';
 import '../../license/screens/suspended_screen.dart';
@@ -18,14 +19,26 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with WindowListener {
   final _formKey = GlobalKey<FormState>();
   final _usernameCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
   bool _obscure = true;
 
   @override
+  void initState() {
+    super.initState();
+    windowManager.addListener(this);
+  }
+
+  @override
+  void onWindowClose() async {
+    await windowManager.destroy();
+  }
+
+  @override
   void dispose() {
+    windowManager.removeListener(this);
     _usernameCtrl.dispose();
     _passwordCtrl.dispose();
     super.dispose();

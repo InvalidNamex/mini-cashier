@@ -35,7 +35,11 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(appLicenses);
           }
           if (from < 4) {
-            await m.addColumn(appLicenses, appLicenses.signature);
+            final cols =
+                await customSelect('PRAGMA table_info(app_licenses)').get();
+            if (!cols.any((c) => c.read<String>('name') == 'signature')) {
+              await m.addColumn(appLicenses, appLicenses.signature);
+            }
           }
           if (from < 5) {
             await m.createTable(periods);
