@@ -67,8 +67,10 @@ class _LoginScreenState extends State<LoginScreen> with WindowListener {
         builder: (dlgCtx, setDlgState) => AlertDialog(
           title: const Row(
             children: [
-              Icon(Icons.admin_panel_settings_outlined,
-                  color: Color(0xFF1B6B4A)),
+              Icon(
+                Icons.admin_panel_settings_outlined,
+                color: Color(0xFF1A237E),
+              ),
               SizedBox(width: 8),
               Text('SA Login'),
             ],
@@ -83,9 +85,11 @@ class _LoginScreenState extends State<LoginScreen> with WindowListener {
               border: const OutlineInputBorder(),
               errorText: error,
               suffixIcon: IconButton(
-                icon: Icon(obscure
-                    ? Icons.visibility_outlined
-                    : Icons.visibility_off_outlined),
+                icon: Icon(
+                  obscure
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                ),
                 onPressed: () => setDlgState(() => obscure = !obscure),
               ),
             ),
@@ -105,7 +109,8 @@ class _LoginScreenState extends State<LoginScreen> with WindowListener {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B6B4A)),
+                backgroundColor: const Color(0xFF1A237E),
+              ),
               onPressed: () {
                 if (_isSaPassword(ctrl.text)) {
                   Navigator.of(dlgCtx).pop();
@@ -114,8 +119,7 @@ class _LoginScreenState extends State<LoginScreen> with WindowListener {
                   setDlgState(() => error = 'كلمة المرور غير صحيحة');
                 }
               },
-              child: const Text('دخول',
-                  style: TextStyle(color: Colors.white)),
+              child: const Text('دخول', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -151,17 +155,18 @@ class _LoginScreenState extends State<LoginScreen> with WindowListener {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.point_of_sale,
-                          size: 56, color: Color(0xFF1B6B4A)),
+                      const Image(
+                        image: AssetImage('assets/images/cashier.png'),
+                        height: 100,
+                        width: 100,
+                      ),
                       const SizedBox(height: 8),
                       Text(
                         'الكاشير',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
+                        style: Theme.of(context).textTheme.headlineMedium
                             ?.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: const Color(0xFF1B6B4A),
+                              color: const Color(0xFF1A237E),
                             ),
                       ),
                       const SizedBox(height: 32),
@@ -184,9 +189,11 @@ class _LoginScreenState extends State<LoginScreen> with WindowListener {
                           labelText: 'كلمة المرور',
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
-                            icon: Icon(_obscure
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined),
+                            icon: Icon(
+                              _obscure
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
                             onPressed: () =>
                                 setState(() => _obscure = !_obscure),
                           ),
@@ -208,8 +215,10 @@ class _LoginScreenState extends State<LoginScreen> with WindowListener {
                               onPressed: _submit,
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 12),
-                                child: Text('دخول',
-                                    style: TextStyle(fontSize: 16)),
+                                child: Text(
+                                  'دخول',
+                                  style: TextStyle(fontSize: 16),
+                                ),
                               ),
                             ),
                           );

@@ -64,11 +64,7 @@ class PeriodReportService {
               pw.Center(
                 child: pw.Text('تقرير نهاية الفترة', style: titleStyle),
               ),
-              pw.SizedBox(height: 3),
-              pw.Center(
-                child:
-                    pw.Text('الفترة رقم ${period.id}', style: subStyle),
-              ),              pw.SizedBox(height: 2),
+            pw.SizedBox(height: 2),
               pw.Center(
                 child: pw.Text('كاشير: $cashierName', style: subStyle),
               ),              pw.SizedBox(height: 3),

@@ -52,24 +52,49 @@ class _PosScreenState extends State<PosScreen> {
         if (state.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-        return Row(
+        return Column(
           children: [
-            // Left: item browser
-            Expanded(
-              flex: 65,
-              child: Column(
+            Container(
+              height: 60,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.white, Color(0xFFF5F7FA)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
                 children: [
-                  _buildTabBar(ctx, state, cubit),
-                  _buildCategoryChips(ctx, state, cubit),
-                  Expanded(child: _buildItemGrid(ctx, state, cubit)),
+                  Image.asset('assets/images/cashier.png', height: 40),
+                  const SizedBox(width: 12),
+                  const Text('نظام المبيعات', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF1A237E))),
                 ],
               ),
             ),
-            const VerticalDivider(width: 1, thickness: 1),
-            // Right: cart
-            SizedBox(
-              width: 340,
-              child: _buildCart(ctx, state, cubit),
+            const Divider(height: 1, thickness: 1),
+            Expanded(
+              child: Row(
+                children: [
+                  // Left: item browser
+                  Expanded(
+                    flex: 65,
+                    child: Column(
+                      children: [
+                        _buildTabBar(ctx, state, cubit),
+                        _buildCategoryChips(ctx, state, cubit),
+                        Expanded(child: _buildItemGrid(ctx, state, cubit)),
+                      ],
+                    ),
+                  ),
+                  const VerticalDivider(width: 1, thickness: 1),
+                  // Right: cart
+                  SizedBox(
+                    width: 340,
+                    child: _buildCart(ctx, state, cubit),
+                  ),
+                ],
+              ),
             ),
           ],
         );
@@ -98,7 +123,7 @@ class _PosScreenState extends State<PosScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
                       color: isActive
-                          ? const Color(0xFF1B6B4A)
+                          ? const Color(0xFF1A237E)
                           : Colors.white,
                       borderRadius: BorderRadius.circular(6),
                     ),
@@ -158,7 +183,7 @@ class _PosScreenState extends State<PosScreen> {
               label: const Text('الكل'),
               selected: state.selectedCategoryId == null,
               onSelected: (_) => cubit.selectCategory(null),
-              selectedColor: const Color(0xFF1B6B4A),
+              selectedColor: const Color(0xFF1A237E),
               labelStyle: TextStyle(
                 color: state.selectedCategoryId == null
                     ? Colors.white
@@ -173,7 +198,7 @@ class _PosScreenState extends State<PosScreen> {
                   label: Text(cat.name),
                   selected: state.selectedCategoryId == cat.id,
                   onSelected: (_) => cubit.selectCategory(cat.id),
-                  selectedColor: const Color(0xFF1B6B4A),
+                  selectedColor: const Color(0xFF1A237E),
                   labelStyle: TextStyle(
                     color: state.selectedCategoryId == cat.id
                         ? Colors.white
@@ -212,7 +237,7 @@ class _PosScreenState extends State<PosScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.fastfood_outlined,
-                      size: 28, color: Color(0xFF1B6B4A)),
+                      size: 28, color: Color(0xFF1A237E)),
                   const SizedBox(height: 6),
                   Text(
                     item.name,
@@ -226,7 +251,7 @@ class _PosScreenState extends State<PosScreen> {
                   Text(
                     '${item.price.toStringAsFixed(2)} ج.م',
                     style: const TextStyle(
-                        color: Color(0xFF1B6B4A), fontSize: 12),
+                        color: Color(0xFF1A237E), fontSize: 12),
                   ),
                 ],
               ),
@@ -244,7 +269,13 @@ class _PosScreenState extends State<PosScreen> {
       children: [
         Container(
           padding: const EdgeInsets.all(12),
-          color: const Color(0xFF1B6B4A),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF1A237E), Color(0xFF3949AB)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
           width: double.infinity,
           child: const Text(
             'الطلب الحالي',
@@ -261,13 +292,13 @@ class _PosScreenState extends State<PosScreen> {
               const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           child: OutlinedButton.icon(
             icon: const Icon(Icons.lock_clock_outlined,
-                color: Color(0xFF1B6B4A)),
+                color: Color(0xFF1A237E)),
             label: Text(
               'إغلاق الفترة${state.currentPeriodId != null ? " (${state.currentPeriodId})" : ""}',
-              style: const TextStyle(color: Color(0xFF1B6B4A)),
+              style: const TextStyle(color: Color(0xFF1A237E)),
             ),
             style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Color(0xFF1B6B4A)),
+              side: const BorderSide(color: Color(0xFF1A237E)),
             ),
             onPressed: () => _doClosePeriod(ctx, cubit),
           ),
@@ -300,7 +331,7 @@ class _PosScreenState extends State<PosScreen> {
                                   Icons.comment_outlined,
                                   size: 18,
                                   color: ci.note != null
-                                      ? const Color(0xFF1B6B4A)
+                                      ? const Color(0xFF1A237E)
                                       : Colors.black38,
                                 ),
                                 tooltip: 'ملاحظة للصنف',
@@ -381,7 +412,7 @@ class _PosScreenState extends State<PosScreen> {
                     style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B6B4A)),
+                        color: Color(0xFF1A237E)),
                   ),
                 ],
               ),
@@ -501,7 +532,7 @@ class _PosScreenState extends State<PosScreen> {
       builder: (dlgCtx) => AlertDialog(
         title: const Row(
           children: [
-            Icon(Icons.lock_clock_outlined, color: Color(0xFF1B6B4A)),
+            Icon(Icons.lock_clock_outlined, color: Color(0xFF1A237E)),
             SizedBox(width: 8),
             Text('إغلاق الفترة'),
           ],
@@ -518,7 +549,7 @@ class _PosScreenState extends State<PosScreen> {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1B6B4A)),
+                backgroundColor: const Color(0xFF1A237E)),
             onPressed: () => Navigator.of(dlgCtx).pop(true),
             child: const Text('إغلاق وطباعة',
                 style: TextStyle(color: Colors.white)),

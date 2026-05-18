@@ -160,7 +160,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           children: [
                             IconButton(
                               icon: const Icon(Icons.edit_outlined,
-                                  color: Color(0xFF1B6B4A)),
+                                  color: Color(0xFF1A237E)),
                               onPressed: () => _showEditDialog(c),
                             ),
                             IconButton(

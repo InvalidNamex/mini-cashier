@@ -118,7 +118,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
               child: Row(
                 children: [
                   const Icon(Icons.folder_outlined,
-                      size: 18, color: Color(0xFF1B6B4A)),
+                      size: 18, color: Color(0xFF1A237E)),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -132,7 +132,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: Color(0xFF1B6B4A)),
+                        color: Color(0xFF1A237E)),
                   ),
                 ],
               ),

@@ -106,7 +106,7 @@ class _SuspendedScreenState extends State<SuspendedScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1B6B4A),
+                      backgroundColor: const Color(0xFF1A237E),
                     ),
                     onPressed: _submit,
                     child: const Padding(
@@ -157,7 +157,7 @@ class _LicenseChoiceDialogState extends State<_LicenseChoiceDialog> {
     return AlertDialog(
       title: const Row(
         children: [
-          Icon(Icons.verified_user_outlined, color: Color(0xFF1B6B4A)),
+          Icon(Icons.verified_user_outlined, color: Color(0xFF1A237E)),
           SizedBox(width: 8),
           Text('إدارة الترخيص'),
         ],
@@ -187,7 +187,7 @@ class _LicenseChoiceDialogState extends State<_LicenseChoiceDialog> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B6B4A),
+                  backgroundColor: const Color(0xFF1A237E),
                 ),
                 icon: const Icon(Icons.all_inclusive, color: Colors.white),
                 label: const Text(

@@ -53,7 +53,7 @@ class _AppShellState extends State<AppShell> with WindowListener {
         builder: (dlgCtx) => AlertDialog(
           title: const Row(
             children: [
-              Icon(Icons.lock_clock_outlined, color: Color(0xFF1B6B4A)),
+              Icon(Icons.lock_clock_outlined, color: Color(0xFF1A237E)),
               SizedBox(width: 8),
               Text('إغلاق الفترة'),
             ],
@@ -69,10 +69,13 @@ class _AppShellState extends State<AppShell> with WindowListener {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B6B4A)),
+                backgroundColor: const Color(0xFF1A237E),
+              ),
               onPressed: () => Navigator.of(dlgCtx).pop(true),
-              child: const Text('نعم، أغلق الفترة',
-                  style: TextStyle(color: Colors.white)),
+              child: const Text(
+                'نعم، أغلق الفترة',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -110,7 +113,7 @@ class _AppShellState extends State<AppShell> with WindowListener {
         builder: (dlgCtx, setS) => AlertDialog(
           title: const Row(
             children: [
-              Icon(Icons.lock_outline, color: Color(0xFF1B6B4A)),
+              Icon(Icons.lock_outline, color: Color(0xFF1A237E)),
               SizedBox(width: 8),
               Text('تأكيد كلمة المرور'),
             ],
@@ -125,15 +128,16 @@ class _AppShellState extends State<AppShell> with WindowListener {
               border: const OutlineInputBorder(),
               errorText: error,
               suffixIcon: IconButton(
-                icon: Icon(obscure
-                    ? Icons.visibility_outlined
-                    : Icons.visibility_off_outlined),
+                icon: Icon(
+                  obscure
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                ),
                 onPressed: () => setS(() => obscure = !obscure),
               ),
             ),
             onSubmitted: (_) async {
-              final user =
-                  await db.usersDao.authenticate(username, ctrl.text);
+              final user = await db.usersDao.authenticate(username, ctrl.text);
               if (!dlgCtx.mounted) return;
               if (user != null) {
                 Navigator.of(dlgCtx).pop(true);
@@ -149,10 +153,13 @@ class _AppShellState extends State<AppShell> with WindowListener {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B6B4A)),
+                backgroundColor: const Color(0xFF1A237E),
+              ),
               onPressed: () async {
-                final user =
-                    await db.usersDao.authenticate(username, ctrl.text);
+                final user = await db.usersDao.authenticate(
+                  username,
+                  ctrl.text,
+                );
                 if (!dlgCtx.mounted) return;
                 if (user != null) {
                   Navigator.of(dlgCtx).pop(true);
@@ -160,8 +167,7 @@ class _AppShellState extends State<AppShell> with WindowListener {
                   setS(() => error = 'كلمة المرور غير صحيحة');
                 }
               },
-              child: const Text('تأكيد',
-                  style: TextStyle(color: Colors.white)),
+              child: const Text('تأكيد', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -195,7 +201,7 @@ class _AppShellState extends State<AppShell> with WindowListener {
         builder: (dlgCtx) => AlertDialog(
           title: const Row(
             children: [
-              Icon(Icons.lock_clock_outlined, color: Color(0xFF1B6B4A)),
+              Icon(Icons.lock_clock_outlined, color: Color(0xFF1A237E)),
               SizedBox(width: 8),
               Text('إغلاق الفترة'),
             ],
@@ -212,10 +218,13 @@ class _AppShellState extends State<AppShell> with WindowListener {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B6B4A)),
+                backgroundColor: const Color(0xFF1A237E),
+              ),
               onPressed: () => Navigator.of(dlgCtx).pop(true),
-              child: const Text('نعم، أغلق الفترة',
-                  style: TextStyle(color: Colors.white)),
+              child: const Text(
+                'نعم، أغلق الفترة',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -285,8 +294,7 @@ class _AppShellState extends State<AppShell> with WindowListener {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () => Navigator.of(dlgCtx).pop(true),
-            child: const Text('متابعة',
-                style: TextStyle(color: Colors.white)),
+            child: const Text('متابعة', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -306,10 +314,12 @@ class _AppShellState extends State<AppShell> with WindowListener {
     }
 
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(error ?? 'تم الاستيراد بنجاح'),
-      backgroundColor: error != null ? Colors.red.shade700 : Colors.green,
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(error ?? 'تم الاستيراد بنجاح'),
+        backgroundColor: error != null ? Colors.red.shade700 : Colors.green,
+      ),
+    );
   }
 
   // ---------------------------------------------------------------------------
@@ -319,8 +329,7 @@ class _AppShellState extends State<AppShell> with WindowListener {
   @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthCubit>().state;
-    final isAdmin =
-        authState is AuthAuthenticated && authState.user.isAdmin;
+    final isAdmin = authState is AuthAuthenticated && authState.user.isAdmin;
     final location = GoRouterState.of(context).uri.toString();
 
     return Stack(
@@ -328,73 +337,92 @@ class _AppShellState extends State<AppShell> with WindowListener {
         Scaffold(
           body: Row(
             children: [
-              NavigationRail(
-                extended: true,
-                minExtendedWidth: 180,
-                backgroundColor: const Color(0xFF1B6B4A),
-                selectedIconTheme:
-                    const IconThemeData(color: Colors.white),
-                unselectedIconTheme:
-                    const IconThemeData(color: Colors.white70),
-                selectedLabelTextStyle: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
-                unselectedLabelTextStyle:
-                    const TextStyle(color: Colors.white70),
-                indicatorColor: Colors.white24,
-                selectedIndex: _selectedIndex(location, isAdmin),
-                onDestinationSelected: (i) =>
-                    _onNav(context, i, isAdmin),
-                leading: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.point_of_sale,
-                          color: Colors.white, size: 32),
-                      const SizedBox(height: 4),
-                      Text(
-                        'الكاشير',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(color: Colors.white),
-                      ),
-                    ],
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF1A237E), Color(0xFF3949AB)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
                 ),
-                trailing: Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (isAdmin) ...[
+                child: NavigationRail(
+                  extended: true,
+                  minExtendedWidth: 180,
+                  backgroundColor: Colors.transparent,
+                  selectedIconTheme: const IconThemeData(color: Colors.white),
+                  unselectedIconTheme: const IconThemeData(
+                    color: Colors.white70,
+                  ),
+                  selectedLabelTextStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  unselectedLabelTextStyle: const TextStyle(
+                    color: Colors.white70,
+                  ),
+                  indicatorColor: Colors.white24,
+                  selectedIndex: _selectedIndex(location, isAdmin),
+                  onDestinationSelected: (i) => _onNav(context, i, isAdmin),
+                  leading: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/cashier.png',
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.contain,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'الكاشير',
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                  trailing: Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (isAdmin) ...[
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.download_outlined,
+                                  color: Colors.white70,
+                                ),
+                                tooltip: 'تصدير قاعدة البيانات',
+                                onPressed: _busy ? null : _handleExport,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.upload_outlined,
+                                  color: Colors.white70,
+                                ),
+                                tooltip: 'استيراد قاعدة البيانات',
+                                onPressed: _busy ? null : _handleImport,
+                              ),
+                            ],
                             IconButton(
-                              icon: const Icon(Icons.download_outlined,
-                                  color: Colors.white70),
-                              tooltip: 'تصدير قاعدة البيانات',
-                              onPressed: _busy ? null : _handleExport,
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.upload_outlined,
-                                  color: Colors.white70),
-                              tooltip: 'استيراد قاعدة البيانات',
-                              onPressed: _busy ? null : _handleImport,
+                              icon: const Icon(
+                                Icons.logout,
+                                color: Colors.white70,
+                              ),
+                              tooltip: 'خروج',
+                              onPressed: () => _handleLogout(),
                             ),
                           ],
-                          IconButton(
-                            icon: const Icon(Icons.logout,
-                                color: Colors.white70),
-                            tooltip: 'خروج',
-                            onPressed: () => _handleLogout(),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
+                  destinations: _buildDestinations(isAdmin),
                 ),
-                destinations: _buildDestinations(isAdmin),
               ),
               const VerticalDivider(thickness: 1, width: 1),
               Expanded(child: widget.child),
